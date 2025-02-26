@@ -26,7 +26,7 @@ export default function Home() {
   return (
     <motion.div className="space-y-8" variants={container} initial="hidden" animate="show">
       <motion.div variants={item}>
-        <h1 className="text-4xl font-bold">Welcome back, Alex</h1>
+        <h1 className="text-4xl font-bold">Welcome To Fitwell</h1>
         <p className="text-muted-foreground">Track your fitness journey and stay motivated</p>
       </motion.div>
 
