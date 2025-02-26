@@ -25,7 +25,7 @@ export default function Navigation() {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           <Link href="/" className="text-xl font-bold">
-            FitAI
+            FitWell
           </Link>
           <div className="flex items-center space-x-4">
             {navItems.map((item) => {
