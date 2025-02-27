@@ -10,21 +10,18 @@ interface ProgressRingProps {
 }
 
 export function ProgressRing({ progress, size, strokeWidth, color = "#3b82f6" }: ProgressRingProps) {
-  const [offset, setOffset] = useState(0)
   const center = size / 2
   const radius = size / 2 - strokeWidth / 2
   const circumference = radius * 2 * Math.PI
-
-  useEffect(() => {
-    const progressOffset = ((100 - progress) / 100) * circumference
-    setOffset(progressOffset)
-  }, [progress, circumference])
+  
+  // Calculate offset directly instead of using state and useEffect
+  const progressOffset = ((100 - progress) / 100) * circumference
 
   return (
     <svg width={size} height={size}>
       <circle
         className="stroke-muted"
-        stroke-width={strokeWidth}
+        strokeWidth={strokeWidth}
         fill="transparent"
         r={radius}
         cx={center}
@@ -33,17 +30,16 @@ export function ProgressRing({ progress, size, strokeWidth, color = "#3b82f6" }:
       <circle
         className="progress-ring"
         stroke={color}
-        stroke-width={strokeWidth}
+        strokeWidth={strokeWidth}
         fill="transparent"
         r={radius}
         cx={center}
         cy={center}
         style={{
-          strokeDasharray: circumference,
-          strokeDashoffset: offset,
+          strokeDasharray: `${circumference}`,
+          strokeDashoffset: progressOffset,
         }}
       />
     </svg>
   )
 }
-

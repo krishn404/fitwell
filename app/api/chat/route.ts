@@ -1,34 +1,37 @@
-import { groq } from "@ai-sdk/groq"
-import { generateText } from "ai"
+import { NextResponse } from "next/server"
 
-export const runtime = "nodejs"
-export const maxDuration = 60
-
-const SYSTEM_PROMPT = `You are a helpful fitness and wellness assistant. Provide clear and concise health advice on exercise, diet, and mental well-being.`
-
-const apiKey = process.env.GROQ_API_KEY
+const GROQ_API_KEY = process.env.GROQ_API_KEY
 
 export async function POST(req: Request) {
-  try {
-    const { messages } = await req.json()
-    const lastMessage = messages[messages.length - 1].content
+  const { message } = await req.json()
 
-    if (!apiKey) {
-      return new Response("API key is missing", { status: 500 })
+  try {
+    const response = await fetch("https://api.groq.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${GROQ_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: "mixtral-8x7b-32768",
+        messages: [
+          { role: "system", content: "You are a helpful fitness and wellness assistant." },
+          { role: "user", content: message },
+        ],
+      }),
+    })
+
+    if (!response.ok) {
+      throw new Error("Failed to get response from GROQ AI")
     }
 
-    const { text } = await generateText({
-      model: groq("mixtral-8x7b-32768"),
-      system: SYSTEM_PROMPT,
-      prompt: lastMessage,
-    })
+    const data = await response.json()
+    const aiResponse = data.choices[0].message.content
 
-    return new Response(JSON.stringify({ response: text }), {
-      headers: { "Content-Type": "application/json" },
-    })
+    return NextResponse.json({ response: aiResponse })
   } catch (error) {
-    return new Response(JSON.stringify({ error: "Error processing request" }), {
-      status: 500,
-    })
+    console.error("Error:", error)
+    return NextResponse.json({ error: "Failed to process request" }, { status: 500 })
   }
 }
+

@@ -28,35 +28,12 @@ export default function AssistantPage() {
     show: { opacity: 1, y: 0 },
   }
 
-  const handleSend = async () => {
+  const handleSend = () => {
     if (input.trim()) {
-      // Add user message to the messages state
-      setMessages([...messages, { role: "user", content: input }]);
-
-      try {
-        // Send the message to the AI backend
-        const response = await fetch("/api/chat", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ messages: [...messages, { role: "user", content: input }] }),
-        });
-
-        if (!response.ok) {
-          throw new Error("Failed to get response from AI");
-        }
-
-        const data = await response.json();
-        // Add AI response to messages
-        setMessages((prev) => [...prev, { role: "assistant", content: data.response }]);
-      } catch (error) {
-        console.error("Error:", error);
-        // Handle error (e.g., show error message to user)
-      }
-
-      // Clear input
-      setInput("");
+      setMessages([...messages, { role: "user", content: input }])
+      // Here you would typically send the message to your AI backend
+      // and then add the response to the messages
+      setInput("")
     }
   }
 

@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 210 40% 98%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -24,6 +24,16 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 221.2 83.2% 53.3%;
     --radius: 1rem;
+
+    /* Enhanced Light Theme Colors */
+    --primary-light: 210 100% 50%;
+    --secondary-light: 280 100% 50%;
+    --accent-light: 35 100% 50%;
+    --background-light: 210 50% 98%;
+    --card-light: 0 0% 100%;
+    --text-light: 210 50% 10%;
+    --muted-light: 210 40% 90%;
+    --border-light: 210 40% 90%;
   }
 
   .dark {
@@ -46,6 +56,16 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 224.3 76.3% 48%;
+
+    /* Enhanced Dark Theme Colors */
+    --primary-dark: 210 100% 60%;
+    --secondary-dark: 280 100% 60%;
+    --accent-dark: 35 100% 60%;
+    --background-dark: 220 40% 10%;
+    --card-dark: 220 40% 15%;
+    --text-dark: 210 40% 98%;
+    --muted-dark: 220 40% 20%;
+    --border-dark: 220 40% 25%;
   }
 }
 
@@ -153,5 +173,55 @@ textarea {
 .backdrop-blur-xl {
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
+}
+
+/* Light theme utility classes */
+.bg-primary-light {
+  background-color: hsl(var(--primary-light));
+}
+
+.bg-secondary-light {
+  background-color: hsl(var(--secondary-light));
+}
+
+.bg-accent-light {
+  background-color: hsl(var(--accent-light));
+}
+
+.text-primary-light {
+  color: hsl(var(--primary-light));
+}
+
+.text-secondary-light {
+  color: hsl(var(--secondary-light));
+}
+
+.text-accent-light {
+  color: hsl(var(--accent-light));
+}
+
+/* Dark theme utility classes */
+.dark .bg-primary-dark {
+  background-color: hsl(var(--primary-dark));
+}
+
+.dark .bg-secondary-dark {
+  background-color: hsl(var(--secondary-dark));
+}
+
+.dark .bg-accent-dark {
+  background-color: hsl(var(--accent-dark));
+}
+
+.dark .text-primary-dark {
+  color: hsl(var(--primary-dark));
+}
+
+.dark .text-secondary-dark {
+  color: hsl(var(--secondary-dark));
+}
+
+.dark .text-accent-dark {
+  color: hsl(var(--accent-dark));
 }
 
